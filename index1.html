@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Questions</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form method="GET">
+      Enter your name :
+      <input
+        type="text"
+        name="users"
+        id="user_id"
+        value="name"
+        onfocus="if(this.value == 'name') {this.value=''}"
+        onblur="if(this.value == ''){this.value ='name'}"
+      /><br />
+      Select the Date : <input type="date" id="date" /><br />
+      Select your favorite color:
+      <select id="color" required>
+        <option value="yellow">yellow</option>
+        <option value="red">red</option>
+      </select>
+      <br />
+      <br />
+      <input
+        type="button"
+        id="mysubmit"
+        value="Add Row"
+        onClick="addMoreRows()"
+      />
+      <input
+        type="button"
+        id="delete"
+        value="Delete"
+        onClick="deleteMoreRows('tbl_id')"
+      />
+    </form>
+    <br />
+    <br />
+    <table id="tbl_id" style="text-align: center" valign="top">
+      <thead>
+        <tr>
+          <th style="width: 200px">Delete</th>
+          <th style="width: 200px">Name</th>
+          <th style="width: 200px">Date</th>
+          <th style="width: 200px">Color</th>
+        </tr>
+      </thead>
+    </table>
+    <script type="text/javascript" src="script1.js"></script>
+  </body>
+</html>

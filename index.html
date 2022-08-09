@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Questions</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <h1 class="row">
+        &nbsp;&nbsp;&nbsp; Create Questions &nbsp;&nbsp;&nbsp;
+      </h1>
+      <br /><br />
+      <div>
+        <form class="form-inline col-sm-offset-3" onsubmit="formSubmit(event)">
+          <div class="input-group">
+            <label class="label">Questions</label>
+            <textarea class="form-control" id="box"></textarea>
+          </div>
+          <div class="input-group">
+            <label class="label">Descriptions</label>
+            <textarea class="form-control" id="box1"></textarea>
+          </div>
+
+          <div class="input-group">
+            <label class="label">Type</label>
+            <input type="text" class="form-control" id="box2" />
+          </div>
+          <div class="input-group">
+            <label class="label">Reasponse</label>
+            <textarea class="form-control" id="box3"></textarea>
+          </div>
+          <div class="form-group">
+            <button
+              id="add"
+              type="submit"
+              class="btn btn-primary form-control submit"
+              value="add"
+              style="width: 10vw"
+            >
+              ADD
+            </button>
+          </div>
+          <div id="modifyBtns"></div>
+
+          <!-- <input
+              type="button"
+              class="btn btn-primary form-control"
+              value="Edit"
+              style="width: 10vw"
+              id="btnedit"
+              onclick="enableEdit()"
+            />
+            <input
+              type="button"
+              class="btn btn-primary form-control"
+              value="Delete"
+              style="width: 10vw"
+              onclick="delete_item()"
+            />
+          -->
+          <div class="row">
+            <table
+              id="list_item"
+              class="table table-bordered"
+              style="width: 852px"
+            >
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Questions</th>
+                  <th scope="col">Descriptions</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Reasponse</th>
+                </tr>
+              </thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>
