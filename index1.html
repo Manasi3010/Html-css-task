@@ -1,54 +1,75 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <title>Questions</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style1.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
   </head>
   <body>
-    <form method="GET">
-      Enter your name :
-      <input
-        type="text"
-        name="users"
-        id="user_id"
-        value="name"
-        onfocus="if(this.value == 'name') {this.value=''}"
-        onblur="if(this.value == ''){this.value ='name'}"
-      /><br />
-      Select the Date : <input type="date" id="date" /><br />
-      Select your favorite color:
-      <select id="color" required>
-        <option value="yellow">yellow</option>
-        <option value="red">red</option>
-      </select>
-      <br />
-      <br />
-      <input
-        type="button"
-        id="mysubmit"
-        value="Add Row"
-        onClick="addMoreRows()"
-      />
-      <input
-        type="button"
-        id="delete"
-        value="Delete"
-        onClick="deleteMoreRows('tbl_id')"
-      />
-    </form>
-    <br />
-    <br />
-    <table id="tbl_id" style="text-align: center" valign="top">
-      <thead>
-        <tr>
-          <th style="width: 200px">Delete</th>
-          <th style="width: 200px">Name</th>
-          <th style="width: 200px">Date</th>
-          <th style="width: 200px">Color</th>
-        </tr>
-      </thead>
-    </table>
+    <div class="container">
+      <div class="main">
+        <h1>Create Questions</h1>
+        <form autocomplete="off" onsubmit="onFormSubmit()">
+          <label for="question">Question</label>
+          <div>
+            <textarea name="question" id="questionbox"></textarea>
+          </div>
+          <label for="description">Description</label>
+          <div>
+            <textarea name="description" id="descriptionbox"></textarea>
+          </div>
+
+          <div class="typeRes">
+            <div>
+              <label for="type">Type</label>
+              <input type="text" name="type" id="typebox" />
+            </div>
+            <div class="price">
+              <label for="response">Response</label>
+              <textarea name="response" id="responsebox"></textarea>
+            </div>
+          </div>
+          <div class="form_action--button">
+            <div id="action">
+              <!-- <button onClick="onEdit(this)">Edit</button> <button onClick="onDelete(this)">Delete</button> -->
+            </div>
+            <div>
+              <button
+                type="submit"
+                value="Add Question"
+                class="btn btn-primary"
+              >
+                Add Question
+              </button>
+            </div>
+
+            <!-- <input type="reset" value="Reset"> -->
+          </div>
+        </form>
+      </div>
+      <div style="margin-top: 5rem" class="table">
+        <table class="table table-bordered" id="questionTable">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Question</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Response</th>
+            </tr>
+          </thead>
+          <tbody id="questionData">
+            <!-- <th><label><input type="radio" id='regular' name="optradio"></label></th> -->
+          </tbody>
+        </table>
+      </div>
+    </div>
     <script type="text/javascript" src="script1.js"></script>
   </body>
 </html>

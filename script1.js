@@ -1,83 +1,104 @@
+var createQuestions = null;
 
-var rowId = 0;
-
-function addMoreRows() {
-
-    var user = document.getElementById('user_id').value;
-    var date = document.getElementById('date').value;
-    var color = document.getElementById('color').value;
-    var table = document.getElementById('tbl_id');
-
-    var row = table.insertRow();
-
-    var rowBox = row.insertCell(0);
-    var userName = row.insertCell(1);
-    var Date = row.insertCell(2);
-    var Color = row.insertCell(3);
-    var checkbox = row.insertCell(4);
-
-    rowBox.innerHTML = '<input type="checkbox" id="delete' + getRowId() + '">';
-    userName.innerHTML = user;
-    Date.innerHTML = date;
-    Color.innerHTML = color;
-
-}
-
-function deleteMoreRows(tableID) {
-
-    var table = document.getElementById(tableID);
-    var rowCount = table.rows.length;
-    var selectedRows = getCheckedBoxes();
-
-    selectedRows.forEach(function(currentValue) {
-      deleteRowByCheckboxId(currentValue.id);
-    });
-}
-
-function getRowId() {
-  rowId += 1;
-  return rowId;
-}
-
-function getRowIdsFromElements($array) {
-  var arrIds = [];
-
-  $array.forEach(function(currentValue, index, array){
-    arrIds.push(getRowIdFromElement(currentValue));
-  });
-
-  return arrIds;
-}
-
-function getRowIdFromElement($el) {
-    return $el.id.split('delete')[1];
-}
-
-//ref: http://stackoverflow.com/questions/8563240/how-to-get-all-checked-checkboxes
-function getCheckedBoxes() {
-  var inputs = document.getElementsByTagName("input");
-  var checkboxesChecked = [];
-
-  // loop over them all
-  for (var i=0; i < inputs.length; i++) {
-     // And stick the checked ones onto an array...
-     if (inputs[i].checked) {
-        checkboxesChecked.push(inputs[i]);
-     }
+function onFormSubmit(e) {
+  event.preventDefault();
+  var formData = readFormData();
+  if (createQuestions == null) {
+    insertNewRecord(formData);
+  } else {
+    onSave(formData);
   }
+  resetForm();
+}
+// function save(){
+//     if(createQuestions !== null && formData){
+//         onSave(formData)
+//     }
+// }
 
-  // Return the array if it is non-empty, or null
-  return checkboxesChecked.length > 0 ? checkboxesChecked : null;
+function readFormData() {
+  var formData = {};
+  formData["question"] = document.getElementById("questionbox").value;
+  formData["description"] = document.getElementById("descriptionbox").value;
+  formData["type"] = document.getElementById("typebox").value;
+  formData["response"] = document.getElementById("responsebox").value;
+  return formData;
 }
 
-//ref: http://stackoverflow.com/questions/4967223/delete-a-row-from-a-table-by-id
-function deleteRowByCheckboxId(CheckboxId) {
-    var checkbox = document.getElementById(CheckboxId);
-    var row = checkbox.parentNode.parentNode;                //box, cell, row, table
-    var table = row.parentNode;
+function insertNewRecord(data) {
+  var table = document
+    .getElementById("questionTable")
+    .getElementsByTagName("tbody")[0];
+  var newRow = table.insertRow(table.length);
+  cell = newRow.insertCell(0);
+  cell.innerHTML = `<input type="radio" name="question" id="radio" onchange="onRadiobtnSelect(this)">`;
+  cell1 = newRow.insertCell(1);
+  cell1.innerHTML = data.question;
+  cell2 = newRow.insertCell(2);
+  cell2.innerHTML = data.description;
+  cell3 = newRow.insertCell(3);
+  cell3.innerHTML = data.type;
+  cell4 = newRow.insertCell(4);
+  cell4.innerHTML = data.response;
+}
 
-    while ( table && table.tagName != 'TABLE' )
-        table = table.parentNode;
-    if (!table) return;
-    table.deleteRow(row.rowIndex);
+function show() {
+  var x = document.getElementById("radio");
+  console.log(x);
+}
+
+function onRadiobtnSelect(value) {
+  var action = document.getElementById("action");
+  action.innerHTML = `<button id="edit" class="btn btn-primary" onClick="onEdit()">Edit</button> <button class="btn btn-danger" onClick="onDelete(this)">Delete</button>`;
+  createQuestions = value.parentElement.parentElement;
+  console.log(createQuestions);
+
+  document.getElementById("questionbox").value =
+    createQuestions.cells[1].innerHTML;
+  document.getElementById("descriptionbox").value =
+    createQuestions.cells[2].innerHTML;
+  document.getElementById("typebox").value = createQuestions.cells[3].innerHTML;
+  document.getElementById("responsebox").value =
+    createQuestions.cells[4].innerHTML;
+}
+
+function onSave(formData) {
+  var action = document.getElementById("action");
+  action.innerHTML = `<button class="btn btn-danger" onclick="onDelete(this)">Delete</button>`;
+  createQuestions.cells[1].innerHTML = formData.question;
+  createQuestions.cells[2].innerHTML = formData.description;
+  createQuestions.cells[3].innerHTML = formData.type;
+  createQuestions.cells[4].innerHTML = formData.response;
+}
+
+function onEdit() {
+  var action = document.getElementById("action");
+  action.innerHTML = `<button id="edit" class="btn btn-primary">Save</button> <button class="btn btn-danger" onClick="onDelete(this)">Delete</button>`;
+}
+
+function onDelete(td) {
+  row = td.parentElement.parentElement;
+  if (action && row) {
+    document.getElementById("questionData").deleteRow(row.rowIndex);
+    deleteRadio();
+    removeButton();
+    resetForm();
+  }
+}
+function removeButton() {
+  const element = document.getElementById("action").innerHTML;
+  element.removeChild();
+  console.log(element);
+}
+function deleteRadio() {
+  const element = document.getElementById("radio");
+  // element.remove();
+  console.log(element);
+}
+function resetForm() {
+  document.getElementById("questionbox").value = "";
+  document.getElementById("descriptionbox").value = "";
+  document.getElementById("typebox").value = "";
+  document.getElementById("responsebox").value = "";
+  createQuestions = null;
 }
